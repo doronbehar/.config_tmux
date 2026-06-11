@@ -90,15 +90,25 @@ unbind-key Up
 unbind-key Down
 unbind-key Left
 unbind-key Right
-# from: https://github.com/christoomey/vim-tmux-navigator#add-a-snippet
 vim_pattern='(\S+/)?g?\.?(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?'
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +${vim_pattern}$'"
+is_vim_win="$XDG_CONFIG_HOME/tmux/is_vim_ancestor.sh #{pane_tty}"
+ 
 if-shell 'uname | grep -qE "(MSYS|MINGW|CYGWIN)"' \
-    "set-option -g @is_vim_cmd 'powershell.exe -NonInteractive -NoProfile -File $XDG_CONFIG_HOME/tmux/is_vim_ancestor.ps1'" \
-    "set-option -g @is_vim_cmd \"ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +${vim_pattern}$'\""
-bind-key -n C-h if-shell "#{@is_vim_cmd}" "send-keys C-h" "select-pane -L"
-bind-key -n C-j if-shell "#{@is_vim_cmd}" "send-keys C-j" "select-pane -D"
-bind-key -n C-k if-shell "#{@is_vim_cmd}" "send-keys C-k" "select-pane -U"
-bind-key -n C-l if-shell "#{@is_vim_cmd}" "send-keys C-l" "select-pane -R"
+    "bind-key -n C-h if-shell \"$is_vim_win\" 'send-keys C-h' 'select-pane -L'" \
+    "bind-key -n C-h if-shell \"$is_vim\"     'send-keys C-h' 'select-pane -L'"
+ 
+if-shell 'uname | grep -qE "(MSYS|MINGW|CYGWIN)"' \
+    "bind-key -n C-j if-shell \"$is_vim_win\" 'send-keys C-j' 'select-pane -D'" \
+    "bind-key -n C-j if-shell \"$is_vim\"     'send-keys C-j' 'select-pane -D'"
+ 
+if-shell 'uname | grep -qE "(MSYS|MINGW|CYGWIN)"' \
+    "bind-key -n C-k if-shell \"$is_vim_win\" 'send-keys C-k' 'select-pane -U'" \
+    "bind-key -n C-k if-shell \"$is_vim\"     'send-keys C-k' 'select-pane -U'"
+ 
+if-shell 'uname | grep -qE "(MSYS|MINGW|CYGWIN)"' \
+    "bind-key -n C-l if-shell \"$is_vim_win\" 'send-keys C-l' 'select-pane -R'" \
+    "bind-key -n C-l if-shell \"$is_vim\"     'send-keys C-l' 'select-pane -R'"
 # Display panes
 unbind-key q
 # {{{1 Panes Manipulation
