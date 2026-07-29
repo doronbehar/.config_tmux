@@ -192,7 +192,10 @@ bind-key E command-prompt -p "Command:" \
 			tmux list-panes    -t SESS_WIN      -F 'SESS_WIN.##{pane_index}' | xargs -I SESS_WIN_PANE \
 			tmux send-keys     -t SESS_WIN_PANE '%1' Enter\""
 # reload configuration
-bind-key R display 'sourcing ~/.tmux.conf' \; source-file ~/.tmux.conf
+bind-key R display 'sourcing tmux.conf' \; if-shell '[[ -n "$XDG_CONFIG_HOME" ]]' \
+    "source $XDG_CONFIG_HOME/tmux/tmux.conf" \
+    "source $HOME/.config/tmux/tmux.conf"
+
 # }}}1
 
 # vim:ft=tmux:foldmethod=marker
