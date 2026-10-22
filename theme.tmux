@@ -20,9 +20,7 @@ set -g status-justify left
 set -g status-left ''
 set -g status-left-length 20
 set -g status-position bottom
-if-shell '[[ -z "$WAYLAND_DISPLAY" ]] || [[ -z "$DISPLAY" ]]' \
-	"set -g status-right '#[fg=colour240]<#[fg=default]#[bg=colour240] #{session_name} #[default]#[fg=colour245] #(df -h / --output=avail | paste -sd : -) '" \
-	"set -g status-right '#[fg=colour240]<#[fg=default]#[bg=colour240] #{session_name} '"
+set -g status-right '#[fg=colour240]<#[fg=default]#[bg=colour240] #{session_name} #[default]#[fg=colour245] #(df -h / --output=avail | paste -sd : -) '
 set -g status-right-length 50
 # {{{1 loud or quiet?
 set-option -g bell-action none
