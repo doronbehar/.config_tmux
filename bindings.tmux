@@ -90,7 +90,7 @@ unbind-key Up
 unbind-key Down
 unbind-key Left
 unbind-key Right
-vim_pattern='(\S+/)?g?\.?(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?'
+vim_pattern='(\S+/)?g?\.?(view|l?n?vim?x?)(diff)?(-wrapped)?'
 is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +${vim_pattern}$'"
 is_vim_win="$XDG_CONFIG_HOME/tmux/is_vim_ancestor.sh #{pane_tty}"
  

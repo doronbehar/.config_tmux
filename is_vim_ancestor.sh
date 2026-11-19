@@ -6,7 +6,7 @@
 # Exit 0 if any process on the given TTY is a vim-like executable.
 # Exit 1 otherwise.
 
-VIM_PATTERN='(\S+/)?g?\.?(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?'
+VIM_PATTERN='(\S+/)?g?\.?(view|l?n?vim?x?)(diff)?(-wrapped)?'
 
 VERBOSE=0
 PANE_TTY=""
